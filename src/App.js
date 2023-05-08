@@ -2,15 +2,20 @@ import './App.css'
 import React, {useState, useEffect} from 'react'
 import Contador from './Contador'
 import PVHeader from './PVHeader'
+import EditForm from "./EditForm"
+import './fontawesome'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import DescansoLargoButton from "./DescansoLargoButton";
 
 function App() {
     const [maximo, setMaximo] = useState(() => parseInt(localStorage.getItem('maximo')) || 5)
     const [cantidad, setCantidad] = useState(() => parseInt(localStorage.getItem('cantidad')) || 0)
     const [ECPorDia, setECPorDia] = useState(() => parseInt(localStorage.getItem('ECPorDia')) || 5)
     const [ECUsados, setECUsados] = useState(() => parseInt(localStorage.getItem('ECUsados')) || 0)
-    const handleMaximoChange = (event) => {
-        const newMaximo = parseInt(event.target.value)
+    const handleMaximoChange = (newMaximo) => {
         setMaximo(newMaximo)
+        handleCantidadChange(newMaximo)
         localStorage.setItem('maximo', newMaximo)
     }
 
@@ -19,16 +24,9 @@ function App() {
         localStorage.setItem('cantidad', nuevaCantidad);
     }
 
-    const handleECPorDiaChange = (event) => {
-        console.debug('event: ' + event.target.value)
-        try {
-            const nuevoECPorDia = parseInt(event.target.value)
-            setECPorDia(nuevoECPorDia)
-            localStorage.setItem('ECPorDia', nuevoECPorDia)
-        } catch (e) {
-            console.log(e)
-        }
-
+    const handleECPorDiaChange = (nuevoECPorDia) => {
+        setECPorDia(nuevoECPorDia)
+        localStorage.setItem('ECPorDia', nuevoECPorDia)
     }
 
     const handleECUsage = (newECUsados) => {
@@ -59,27 +57,12 @@ function App() {
     return (
         <div className={'App'}>
             <div className={'PV-container'}>
-                <PVHeader maximo={maximo} ECPorDia={ECPorDia} ECUsados={ECUsados} />
-                <Contador maximo={maximo} cantidad={cantidad} ECPorDia={ECPorDia} ECUsados={ECUsados} onECUsage={handleECUsage} onCantidadChange={handleCantidadChange}/>
+                <PVHeader maximo={maximo} ECPorDia={ECPorDia} ECUsados={ECUsados}/>
+                <Contador maximo={maximo} cantidad={cantidad} ECPorDia={ECPorDia} ECUsados={ECUsados}
+                          onECUsage={handleECUsage} onCantidadChange={handleCantidadChange}/>
+                <DescansoLargoButton onDescansoLargoClick={handleDescansoLargo} />
+                <EditForm maximo={maximo} ECPorDia={ECPorDia} onMaximoChange={handleMaximoChange} onECPorDiaChange={handleECPorDiaChange}/>
 
-                <form className={'PV-max-containter'}>
-                    <div>
-                        <label>PV Max: </label>
-                        <input className={'PV-max-input'} type="number" value={maximo} onChange={handleMaximoChange}/>
-                    </div>
-                    <div>
-                        <label>EC/Dia:</label>
-                        <select onChange={handleECPorDiaChange} value={ECPorDia} className={'PV-max-input'}>
-                            {
-                                [...Array(10)].map((_, i) => i + 1)
-                                    .map(i => <option key={i} value={i}>{i}</option>)
-                            }
-                        </select>
-                    </div>
-                    <div>
-                        <button onClick={handleDescansoLargo}>Descanso Largo</button>
-                    </div>
-                </form>
             </div>
 
         </div>
