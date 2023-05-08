@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadChange}) {
 
     const [clicked, setClicked] = useState(false);
+    const [currentTimeout, setCurrentTimeout] = useState(0);
 
     const maltrecho = Math.floor(maximo / 2);
 
@@ -25,20 +26,22 @@ function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadCh
         }
     }
 
-    const handleEC = () => {
+    const handleECConfirmation = () => {
         handleIncrement(Math.floor(maximo / 4))
         onECUsage(ECUsados + 1)
         setClicked(false)
+        clearTimeout(currentTimeout)
+        setCurrentTimeout(null)
     }
 
     const handleECFirstClick = () => {
         setClicked(true)
-        setTimeout(
+        let timer = setTimeout(
             function() {
                 setClicked(false)
-            }, 5000);
+            }, 3000);
+        setCurrentTimeout(timer)
     }
-
 
     const ECButton =
         <button className={'PV-buttons ec-button'} onClick={handleECFirstClick} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
@@ -46,7 +49,7 @@ function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadCh
         </button>
 
     const ECConfirmButton =
-        <button className={'PV-buttons exito-button'} onClick={handleEC} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
+        <button className={'PV-buttons exito-button'} onClick={handleECConfirmation} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
             <FontAwesomeIcon icon={['fas', 'check']} size="xl"/>
         </button>
 

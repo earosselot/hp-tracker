@@ -3,34 +3,38 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function DescansoLargoButton({onDescansoLargoClick, editPV}) {
 
-    const [clicked, setClicked] = useState(false);
+    const [longRestButtonClicked, setLongRestButtonClicked] = useState(false);
+    const [currentTimeout, setCurrentTimeout] = useState(0);
 
-    const handleDescansoLargo = () => {
+    const handleLongRestConfirmation = () => {
         onDescansoLargoClick()
-        setClicked(false)
+        setLongRestButtonClicked(false)
+        clearTimeout(currentTimeout)
+        setCurrentTimeout(null)
     }
 
-    const handleDescansoLargoPrimerClick = () => {
-        setClicked(true)
-        setTimeout(
+    const handleLongRestFirstClick = () => {
+        setLongRestButtonClicked(true)
+        let timer = setTimeout(
             function() {
-                setClicked(false)
-            }, 5000);
+                setLongRestButtonClicked(false)
+            }, 3000);
+        setCurrentTimeout(timer)
     }
 
     const descansoButton = <div className={'PV-descanso-button-container'}>
-        <button className={'PV-buttons descanso-button'} onClick={handleDescansoLargoPrimerClick}>
+        <button className={'PV-buttons descanso-button'} onClick={handleLongRestFirstClick}>
             <FontAwesomeIcon icon={['fas', 'moon']} size="lg"/>
         </button>
     </div>
 
     const confirmButton = <div className={'PV-descanso-button-container'}>
-        <button className={'PV-buttons exito-button'} onClick={handleDescansoLargo}>
+        <button className={'PV-buttons exito-button'} onClick={handleLongRestConfirmation}>
             <FontAwesomeIcon icon={['fas', 'check']} size="xl"/>
         </button>
     </div>
 
-    return clicked ? confirmButton : !editPV && descansoButton
+    return longRestButtonClicked ? confirmButton : !editPV && descansoButton
 }
 
 export default DescansoLargoButton
