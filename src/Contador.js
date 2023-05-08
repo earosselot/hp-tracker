@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadChange}) {
+
+    const [clicked, setClicked] = useState(false);
+
+    const maltrecho = Math.floor(maximo / 2);
+
     const handleIncrement = (incremento) => {
         const nuevaCantidad = cantidad + incremento
         if (nuevaCantidad <= maximo) {
@@ -22,9 +28,27 @@ function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadCh
     const handleEC = () => {
         handleIncrement(Math.floor(maximo / 4))
         onECUsage(ECUsados + 1)
+        setClicked(false)
     }
 
-    const maltrecho = Math.floor(maximo / 2);
+    const handleECFirstClick = () => {
+        setClicked(true)
+        setTimeout(
+            function() {
+                setClicked(false)
+            }, 5000);
+    }
+
+
+    const ECButton =
+        <button className={'PV-buttons ec-button'} onClick={handleECFirstClick} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
+            <FontAwesomeIcon icon={['fas', 'heartbeat']}/>
+        </button>
+
+    const ECConfirmButton =
+        <button className={'PV-buttons exito-button'} onClick={handleEC} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
+            <FontAwesomeIcon icon={['fas', 'check']}/>
+        </button>
 
     return (
         <div className={'PV-box'}>
@@ -39,9 +63,7 @@ function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadCh
             <div className={'PV-box-element PV-box-element-space-around'}>
                 <button className={'PV-buttons'} onClick={() => handleIncrement(1)} disabled={cantidad >= maximo}>+
                 </button>
-                <button className={'PV-buttons'} onClick={handleEC}
-                        disabled={cantidad >= maximo || ECUsados >= ECPorDia}>EC
-                </button>
+                {clicked ? ECConfirmButton : ECButton}
             </div>
         </div>
     );

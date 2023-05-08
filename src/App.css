@@ -129,3 +129,7 @@ th {
   background-color: green;
   transition-duration: 1s;
 }
+
+.ec-button {
+  color: green;
+}
