@@ -33,8 +33,8 @@ function EditForm({maximo, ECPorDia, onMaximoChange, onECPorDiaChange}) {
                 </div>
             </form>}
             <div className={'PV-edit-button-container'}>
-                <button className={edit ? 'PV-buttons exito-button' : 'PV-buttons'} onClick={() => setEdit(!edit)}>
-                    {edit ? <FontAwesomeIcon icon={['fas', 'check']}/> : <FontAwesomeIcon icon={['fas', 'edit']} />}
+                <button className={edit ? 'PV-buttons exito-button' : 'PV-buttons edit-button'} onClick={() => setEdit(!edit)}>
+                    {edit ? <FontAwesomeIcon icon={['fas', 'check']} size="xl"/> : <FontAwesomeIcon icon={['fas', 'edit']} size="lg" />}
                 </button>
             </div>
 

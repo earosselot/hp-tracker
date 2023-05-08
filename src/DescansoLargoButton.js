@@ -19,14 +19,14 @@ function DescansoLargoButton({onDescansoLargoClick}) {
     }
 
     const descansoButton = <div className={'PV-descanso-button-container'}>
-        <button className={'PV-buttons'} onClick={handleDescansoLargoPrimerClick}>
-            <FontAwesomeIcon icon={['fas', 'moon']}/>
+        <button className={'PV-buttons descanso-button'} onClick={handleDescansoLargoPrimerClick}>
+            <FontAwesomeIcon icon={['fas', 'moon']} size="lg"/>
         </button>
     </div>
 
     const confirmButton = <div className={'PV-descanso-button-container'}>
         <button className={'PV-buttons exito-button'} onClick={handleDescansoLargo}>
-            <FontAwesomeIcon icon={['fas', 'check']}/>
+            <FontAwesomeIcon icon={['fas', 'check']} size="xl"/>
         </button>
     </div>
 

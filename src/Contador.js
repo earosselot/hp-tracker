@@ -41,27 +41,32 @@ function Contador({maximo, cantidad, ECUsados, ECPorDia, onECUsage, onCantidadCh
 
 
     const ECButton =
-        <button className={'PV-buttons ec-button'} onClick={handleECFirstClick} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
-            <FontAwesomeIcon icon={['fas', 'heartbeat']}/>
+        <button className={'PV-buttons ec-button plus-button'} onClick={handleECFirstClick} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
+            <FontAwesomeIcon icon={['fas', 'heartbeat']} size="xl"/>
         </button>
 
     const ECConfirmButton =
-        <button className={'PV-buttons exito-button'} onClick={handleEC} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
-            <FontAwesomeIcon icon={['fas', 'check']}/>
+        <button className={'PV-buttons exito-button plus-button'} onClick={handleEC} disabled={cantidad >= maximo || ECUsados >= ECPorDia}>
+            <FontAwesomeIcon icon={['fas', 'check']} size="xl"/>
         </button>
 
     return (
         <div className={'PV-box'}>
             <div className={'PV-box-element PV-box-element-space-around'}>
-                <button className={'PV-buttons'} onClick={() => handleDecrement(5)} disabled={cantidad <= -maximo}>-5</button>
-                <button className={'PV-buttons'} onClick={() => handleDecrement(1)} disabled={cantidad <= -maximo}>-</button>
+                <button className={'PV-buttons minus-button'} onClick={() => handleDecrement(5)} disabled={cantidad <= -maximo}>-5</button>
+                <button className={'PV-buttons minus-button'} onClick={() => handleDecrement(1)} disabled={cantidad <= -maximo}>
+                    <FontAwesomeIcon icon={['fas', 'minus']} size="lg"/>
+                </button>
             </div>
             <div className={'PV-box-element PV-box-element-center'}>
-                <span className={'PV'}>&hearts;</span><span
-                className={cantidad <= maltrecho ? 'color-cantidad color-cantidad--mitad PV' : 'color-cantidad PV'}>{cantidad}</span>
+                <span className={'PV heart-counter'}><FontAwesomeIcon icon={['fas', 'heart']}/></span>
+                <span className={cantidad <= maltrecho ? 'color-cantidad color-cantidad--mitad PV' : 'color-cantidad PV'}>
+                    {cantidad}
+                </span>
             </div>
             <div className={'PV-box-element PV-box-element-space-around'}>
-                <button className={'PV-buttons'} onClick={() => handleIncrement(1)} disabled={cantidad >= maximo}>+
+                <button className={'PV-buttons plus-button'} onClick={() => handleIncrement(1)} disabled={cantidad >= maximo}>
+                    <FontAwesomeIcon icon={['fas', 'plus']} size="xl"/>
                 </button>
                 {clicked ? ECConfirmButton : ECButton}
             </div>

@@ -2,7 +2,16 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 // import your icons
-import {faCheck, faCode, faEdit, faHeartbeat, faHighlighter, faMoon} from '@fortawesome/free-solid-svg-icons';
+import {
+    faCheck,
+    faCode,
+    faEdit, faHeart,
+    faHeartbeat,
+    faHighlighter,
+    faMinus,
+    faMoon,
+    faPlus
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
     faCode,
@@ -10,6 +19,8 @@ library.add(
     faEdit,
     faMoon,
     faCheck,
-    faHeartbeat
-    // more icons go here
+    faHeartbeat,
+    faPlus,
+    faMinus,
+    faHeart
 );
