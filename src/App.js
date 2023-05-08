@@ -19,9 +19,16 @@ function App() {
         localStorage.setItem('cantidad', nuevaCantidad);
     }
 
-    const handleECPorDiaChange = (nuevoECPorDia) => {
-        setECPorDia(nuevoECPorDia)
-        localStorage.setItem('ECPorDia', nuevoECPorDia)
+    const handleECPorDiaChange = (event) => {
+        console.debug('event: ' + event.target.value)
+        try {
+            const nuevoECPorDia = parseInt(event.target.value)
+            setECPorDia(nuevoECPorDia)
+            localStorage.setItem('ECPorDia', nuevoECPorDia)
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     const handleECUsage = (newECUsados) => {
@@ -30,14 +37,19 @@ function App() {
 
     const handleDescansoLargo = () => {
         setECUsados(0)
+        handleCantidadChange(maximo)
     }
 
     useEffect(() => {
         const handleStorageChange = () => {
-            const newMaximo = parseInt(localStorage.getItem('maximo')) || 5;
-            const newCantidad = parseInt(localStorage.getItem('cantidad')) || 0;
-            setMaximo(newMaximo);
-            setCantidad(newCantidad);
+            const newMaximo = parseInt(localStorage.getItem('maximo')) || 5
+            const newCantidad = parseInt(localStorage.getItem('cantidad')) || 0
+            const newECPorDia = parseInt(localStorage.getItem('ECPorDia')) || 5
+            const newECUsados = parseInt(localStorage.getItem('ECUsados')) || 0
+            setMaximo(newMaximo)
+            setCantidad(newCantidad)
+            setECPorDia(newECPorDia)
+            setECUsados(newECUsados)
         };
 
         window.addEventListener('storage', handleStorageChange);
@@ -57,7 +69,12 @@ function App() {
                     </div>
                     <div>
                         <label>EC/Dia:</label>
-                        <input className={'PV-max-input'} type="number" value={ECPorDia} onChange={handleECPorDiaChange}/>
+                        <select onChange={handleECPorDiaChange} value={ECPorDia} className={'PV-max-input'}>
+                            {
+                                [...Array(10)].map((_, i) => i + 1)
+                                    .map(i => <option key={i} value={i}>{i}</option>)
+                            }
+                        </select>
                     </div>
                     <div>
                         <button onClick={handleDescansoLargo}>Descanso Largo</button>
