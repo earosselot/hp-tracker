@@ -11,6 +11,12 @@ function App() {
     const [cantidad, setCantidad] = useState(() => parseInt(localStorage.getItem('cantidad')) || 0)
     const [ECPorDia, setECPorDia] = useState(() => parseInt(localStorage.getItem('ECPorDia')) || 5)
     const [ECUsados, setECUsados] = useState(() => parseInt(localStorage.getItem('ECUsados')) || 0)
+    const [editPV, setEditPV] = useState(false)
+
+    const toggleEditPV = () => {
+        setEditPV(!editPV)
+    }
+
     const handleMaximoChange = (newMaximo) => {
         setMaximo(newMaximo)
         handleCantidadChange(newMaximo)
@@ -58,8 +64,8 @@ function App() {
                 <PVHeader maximo={maximo} ECPorDia={ECPorDia} ECUsados={ECUsados}/>
                 <Contador maximo={maximo} cantidad={cantidad} ECPorDia={ECPorDia} ECUsados={ECUsados}
                           onECUsage={handleECUsage} onCantidadChange={handleCantidadChange}/>
-                <DescansoLargoButton onDescansoLargoClick={handleDescansoLargo} />
-                <EditForm maximo={maximo} ECPorDia={ECPorDia} onMaximoChange={handleMaximoChange} onECPorDiaChange={handleECPorDiaChange}/>
+                <DescansoLargoButton onDescansoLargoClick={handleDescansoLargo} editPV={editPV} />
+                <EditForm maximo={maximo} ECPorDia={ECPorDia} editPV={editPV} onMaximoChange={handleMaximoChange} onECPorDiaChange={handleECPorDiaChange} onEditPV={toggleEditPV}/>
 
             </div>
 

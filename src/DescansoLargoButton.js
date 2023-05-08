@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-function DescansoLargoButton({onDescansoLargoClick}) {
+function DescansoLargoButton({onDescansoLargoClick, editPV}) {
 
     const [clicked, setClicked] = useState(false);
 
@@ -30,7 +30,7 @@ function DescansoLargoButton({onDescansoLargoClick}) {
         </button>
     </div>
 
-    return clicked ? confirmButton : descansoButton
+    return clicked ? confirmButton : !editPV && descansoButton
 }
 
 export default DescansoLargoButton

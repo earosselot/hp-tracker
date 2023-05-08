@@ -95,6 +95,7 @@ th {
 
 .PV-edit-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   font-size: 30px;
   margin-bottom: 70px;
