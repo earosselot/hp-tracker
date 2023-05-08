@@ -54,8 +54,8 @@ table {
 td,
 th {
   text-align: center;
-  padding: 0px;
-  border: 0px solid black;
+  padding: 0;
+  border: 0 solid black;
   width: 33.33%;
 }
 
@@ -85,7 +85,7 @@ th {
 }
 
 .PV-buttons {
-  border: 0px solid lightgrey;
+  border: 0 solid lightgrey;
   background-color: #fff;
   font-size: 20px;
   height: 2.5em;
@@ -133,15 +133,6 @@ th {
 
 .ec-button {
   color: green;
-}
-
-.minus-button {
-  /*border: 2px solid #b51111;*/
-  /*background-color: lightgrey;*/
-}
-
-.plus-button {
-  /*border: 2px solid green;*/
 }
 
 .heart-counter {

@@ -1,10 +1,8 @@
 import React from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    Box,
-    Button,
     FormControl,
-    IconButton,
+    IconButton, InputAdornment,
     InputLabel,
     MenuItem,
     Paper,
@@ -19,7 +17,7 @@ function EditForm({maximo, ECPorDia, onMaximoChange, onECPorDiaChange, editPV, o
 
     const handleMaximoChange = (event) => {
         const newMaximo = parseInt(event.target.value)
-        onMaximoChange(newMaximo)
+        Number.isNaN(newMaximo) ? onMaximoChange(0) : onMaximoChange(newMaximo)
     }
 
     const handleECPorDiaChange = (event) => {
@@ -50,13 +48,20 @@ function EditForm({maximo, ECPorDia, onMaximoChange, onECPorDiaChange, editPV, o
                     '& .MuiTextField-root': {m: 1, width: '25ch'},
                 }}*/>
                 <Grid2 xs={5}>
-                    <FormControl>
+                    <FormControl fullWidth>
                         <TextField
                             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
                             value={maximo}
                             onChange={handleMaximoChange}
                             size="small"
                             label="PV Max"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <FontAwesomeIcon icon={['fas', 'heart']}/>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                     </FormControl>
                 </Grid2>
@@ -76,7 +81,7 @@ function EditForm({maximo, ECPorDia, onMaximoChange, onECPorDiaChange, editPV, o
                         </Select>
                     </FormControl>
                 </Grid2>
-                <Grid2 xs={2}>
+                <Grid2 xs={2} display="flex" justifyContent="center" alignItems="center">
                     <IconButton color="primary" onClick={onEditPV}>
                         <FontAwesomeIcon icon={['fas', 'check']} size="xl"/>
                     </IconButton>
