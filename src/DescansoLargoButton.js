@@ -10,8 +10,16 @@ function DescansoLargoButton({onDescansoLargoClick}) {
         setClicked(false)
     }
 
+    const handleDescansoLargoPrimerClick = () => {
+        setClicked(true)
+        setTimeout(
+            function() {
+                setClicked(false)
+            }, 5000);
+    }
+
     const descansoButton = <div className={'PV-descanso-button-container'}>
-        <button className={'PV-buttons'} onClick={() => setClicked(true)}>
+        <button className={'PV-buttons'} onClick={handleDescansoLargoPrimerClick}>
             <FontAwesomeIcon icon={['fas', 'moon']}/>
         </button>
     </div>

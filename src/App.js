@@ -4,8 +4,6 @@ import Contador from './Contador'
 import PVHeader from './PVHeader'
 import EditForm from "./EditForm"
 import './fontawesome'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {library} from "@fortawesome/fontawesome-svg-core";
 import DescansoLargoButton from "./DescansoLargoButton";
 
 function App() {
