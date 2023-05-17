@@ -5,22 +5,38 @@ import PVHeader from './PVHeader'
 import EditForm from "./EditForm"
 import './fontawesome'
 import DescansoLargoButton from "./DescansoLargoButton";
+import CharacterPV from "./CharacterPv";
 
 function App() {
-    const [maximo, setMaximo] = useState(() => parseInt(localStorage.getItem('maximo')) || 5)
+    const [maximo, setMaximo] = useState(() => parseInt(localStorage.getItem('max')) || 5)
     const [cantidad, setCantidad] = useState(() => parseInt(localStorage.getItem('cantidad')) || 0)
     const [ECPorDia, setECPorDia] = useState(() => parseInt(localStorage.getItem('ECPorDia')) || 5)
     const [ECUsados, setECUsados] = useState(() => parseInt(localStorage.getItem('ECUsados')) || 0)
     const [editPV, setEditPV] = useState(false)
+
+    const initCharacter = () => {
+        const initCharacter = {
+            max: parseInt(localStorage.getItem('max')) || 5,
+            cantidad: parseInt(localStorage.getItem('cantidad')) || 0,
+            ECPorDia: parseInt(localStorage.getItem('ECPorDia')) || 5,
+            ECUsados: parseInt(localStorage.getItem('ECUsados')) || 0
+        }
+    }
+
+    const [character, setCharacter] = useState(() => initCharacter())
 
     const toggleEditPV = () => {
         setEditPV(!editPV)
     }
 
     const handleMaximoChange = (newMaximo) => {
+        setCharacter((character) => ({
+            ...character,
+            max: newMaximo
+        }))
         setMaximo(newMaximo)
         handleCantidadChange(newMaximo)
-        localStorage.setItem('maximo', newMaximo)
+        localStorage.setItem('max', newMaximo)
     }
 
     const handleCantidadChange = (nuevaCantidad) => {
@@ -58,17 +74,20 @@ function App() {
         return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
+    const handlers = {
+        handleECUsage, handleCantidadChange, handleDescansoLargo, handleMaximoChange, handleECPorDiaChange, toggleEditPV}
+
     return (
         <div className={'App'}>
             <div className={'PV-container'}>
-                <PVHeader maximo={maximo} ECPorDia={ECPorDia} ECUsados={ECUsados}/>
+                <CharacterPV character={character} handlers={handlers} />
+                {/*<PVHeader maximo={maximo} ECPorDia={ECPorDia} ECUsados={ECUsados}/>
                 <Contador maximo={maximo} cantidad={cantidad} ECPorDia={ECPorDia} ECUsados={ECUsados}
                           onECUsage={handleECUsage} onCantidadChange={handleCantidadChange}/>
                 <DescansoLargoButton onDescansoLargoClick={handleDescansoLargo} editPV={editPV} />
                 <EditForm maximo={maximo} ECPorDia={ECPorDia} editPV={editPV} onMaximoChange={handleMaximoChange} onECPorDiaChange={handleECPorDiaChange} onEditPV={toggleEditPV}/>
-
+*/}
             </div>
-
         </div>
     )
 }
