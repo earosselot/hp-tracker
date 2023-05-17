@@ -35,6 +35,7 @@ function App() {
 
     const handleECUsage = (newECUsados) => {
         setECUsados(newECUsados)
+        localStorage.setItem('ECUsados', newECUsados)
     }
 
     const handleDescansoLargo = () => {
